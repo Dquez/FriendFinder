@@ -1,27 +1,29 @@
+let friendsData = require("../data/friends");
+// var waitListData = require("../data/waitinglistData");
+
 module.exports = function (app) {
-    console.log("connected");
-    // HTML GET Requests
-    // Below code handles when users "visit" a page.
-    // In each of the below cases the user is shown an HTML page of content
-    // ---------------------------------------------------------------------------
-    app.get("/api", function (req, res) {
-        res.send("API JSON");
-    })
-    // app.get('/', function (req, res) {
-    //     res.sendFile(path.join(__dirname, "../public/home.html"));
-    //     console.log("hello");
-    // });
+    // A GET route with the url /api/friends. This will be used to display a JSON of all possible friends.
+    // A POST routes /api/friends. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
+    app.get("/api/friends", function (req, res) {
+        res.json(friendsData);
+        res.send("hello friends");
+    });
+    app.post("/api/friends", function (req, res) {
+        // Determine whether user is match or not
+        // req.body is available since we're using the body-parser middleware
+        if (tableData.length < 5) {
+            tableData.push(req.body);
+            res.json(true);
+        } else {
+            waitListData.push(req.body);
+            res.json(false);
+        }
+    });
+    // app.post("/api/clear", function () {
+    //     // Empty out the arrays of data
+    //     tableData = [];
+    //     waitListData = [];
 
-    // app.get("/tables", function (req, res) {
-    //     res.sendFile(path.join(__dirname, "../public/tables.html"));
-    // });
-
-    // app.get("/reserve", function (req, res) {
-    //     res.sendFile(path.join(__dirname, "../public/reserve.html"));
-    // });
-
-    // If no matching route is found default to home
-    // app.get("*", function (req, res) {
-    //     res.sendFile(path.join(__dirname, "../public/home.html"));
+    //     console.log(tableData);
     // });
 };
