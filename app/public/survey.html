@@ -33,23 +33,6 @@
             </div>
         </form>
     </div>
-    <!-- <div class="row">
-            <div class="col-lg-12">
-                
-                <h3>Question 1</h3>
-                <h4>Your mind is always buzzing with unexplored ideas and plans. </h4>
-                <select class="custom-select">
-                    <option selected class="text-muted">Select an option</option>
-                    <option value="1">1 (Strongly Disagree)</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5 (Strongly Agree)</option>
-                </select>
-            </div>
-        </div> -->
-
-
     <footer class="footer">
         <div class="container">
             <p>
@@ -58,9 +41,7 @@
             </p>
         </div>
     </footer>
-
     </div>
-
 </body>
 
 </html>
@@ -112,25 +93,14 @@
             values: [0, 1, 2, 3, 4, 5]
         }
     ];
-
-    // <label for="sel1">Select list (select one):</label>
-    // <select class="form-control" id="sel1">
-    //   <option>1</option>
-    //   <option>2</option>
-    //   <option>3</option>
-    //   <option>4</option>
-    // </select>
-
-
     for (var i = 0; i < questions.length; i++) {
         panel.append("<h3> Question " + (i + 1) + "</h3>");
         panel.append("<h4>" + questions[i].question + "</h4>");
         let selectBox = $("<select>");
-        selectBox.addClass("custom-select");
+        selectBox.addClass("custom-select question-" + (i + 1));
         panel.append(selectBox);
         for (var j = 0; j < questions[j].answers.length; j++) {
             if (j == 0) {
-                console.log("dis");
                 selectBox.append("<option value='" + questions[i].values[j] + "' disabled selected='default'>" +
                     questions[i].answers[j] +
                     "</option>");
@@ -138,47 +108,51 @@
                 selectBox.append("<option value='" + questions[i].values[j] + "'>" + questions[i].answers[j] +
                     "</option>");
             }
-
         }
         selectBox.append("</select>")
     }
     panel.append("<br><button id='done' class ='btn btn-primary'>Done</button>");
 
+   
     // // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
     // // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
     // // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
     // // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-    // $(".submit").on("click", function (event) {
-    //     event.preventDefault();
-    //     // Here we grab the form elements
-    //     var newReservation = {
-    //         customerName: $("#reserve-name").val().trim(),
-    //         phoneNumber: $("#reserve-phone").val().trim(),
-    //         customerEmail: $("#reserve-email").val().trim(),
-    //         customerID: $("#reserve-unique-id").val().trim()
-    //     };
-    //     console.log(newReservation);
-    //     // This line is the magic. It"s very similar to the standard ajax function we used.
-    //     // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-    //     // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-    //     // depending on if a tables is available or not.
-    //     $.post("/api/tables", newReservation,
-    //         function (data) {
-    //             // If a table is available... tell user they are booked.
-    //             if (data) {
-    //                 alert("Yay! You are officially booked!");
-    //             }
-    //             // If a table is available... tell user they on the waiting list.
-    //             else {
-    //                 alert("Sorry you are on the wait list");
-    //             }
-    //             // Clear the form when submitting
-    //             $("#reserve-name").val("");
-    //             $("#reserve-phone").val("");
-    //             $("#reserve-email").val("");
-    //             $("#reserve-unique-id").val("");
-    //         });
-    // });
+    $("#done").on("click", function (event) {
+        event.preventDefault();
+        let newFriend = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            scores: []
+        };
+        for (var i = 0; i < questions.length; i++) {
+            let thisQuestion = $(".question-" + (i + 1));
+            newFriend.scores.push(parseInt(thisQuestion[0].value));
+        }
+        console.log(newFriend);
+
+        // console.log(newReservation);
+        // This line is the magic. It"s very similar to the standard ajax function we used.
+        // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
+        // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
+        // depending on if a tables is available or not.
+        // $.post("/api/tables", newReservation,
+        //     function (data) {
+        //         // If a table is available... tell user they are booked.
+        //         if (data) {
+        //             alert("Yay! You are officially booked!");
+        //         }
+        //         // If a table is available... tell user they on the waiting list.
+        //         else {
+        //             alert("Sorry you are on the wait list");
+        //         }
+        //         // Clear the form when submitting
+        //         $("#reserve-name").val("");
+        //         $("#reserve-phone").val("");
+        //         $("#reserve-email").val("");
+        //         $("#reserve-unique-id").val("");
+        //     });
+    });
 
 
 
