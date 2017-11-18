@@ -28,14 +28,12 @@
             </label>
             <input type="photo" class="form-control" id="photo" required>
         </div>
-        <div id="wrapper">
-            <div id="sub-wrapper">
-                <div id="quiz-area">
-                    <button id="start">Start</button>
-                </div>
+        <form role="form">
+            <div id="wrapper" class="form-group">
             </div>
-        </div>
-        <!-- <div class="row">
+        </form>
+    </div>
+    <!-- <div class="row">
             <div class="col-lg-12">
                 
                 <h3>Question 1</h3>
@@ -52,15 +50,14 @@
         </div> -->
 
 
-        <footer class="footer">
-            <div class="container">
-                <p>
-                    <a href="/api/tables">API Table Link</a> |
-                    <a href="/api/waitlist">API Wait List</a> |
-                    <a href="https://github.com/afhaque/HotRestaurant">GitHub Repo</a>
-                </p>
-            </div>
-        </footer>
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <a href="/api/friends">API Table Link</a> |
+                <a href="https://github.com/Dquez/FriendFinder">GitHub Repo</a>
+            </p>
+        </div>
+    </footer>
 
     </div>
 
@@ -70,62 +67,83 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
-let panel = $("#wrapper");
+    let panel = $("#wrapper");
     var questions = [{
-        question: "What was the first full length CGI movie?",
-        answers: ["A Bug's Life", "Monsters Inc.", "Toy Story", "The Lion King"],
-    }, {
-        question: "Which of these is NOT a name of one of the Spice Girls?",
-        answers: ["Sporty Spice", "Fred Spice", "Scary Spice", "Posh Spice"],
+            question: "Your mind is always buzzing with unexplored ideas and plan.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "Generally speaking, you rely more on your experience than your imagination.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "You find it easy to stay relaxed and focused even when there is some pressure.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "You rarely do something just out of sheer curiosity.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "People can rarely upset you.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "It is often difficult for you to relate to other people’s feelings.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "In a discussion, truth should be more important than people’s sensitivities.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }, {
+            question: "You rarely get carried away by fantasies and ideas.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        },
+        {
+            question: "You think that everyone’s views should be respected regardless of whether they are supported by facts or not.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        },
+        {
+            question: "You feel more energetic after spending time with a group of people.",
+            answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
+            values: [0, 1, 2, 3, 4, 5]
+        }
+    ];
 
-    }, {
-        question: "Which NBA team won the most titles in the 90s?",
-        answers: ["New York Knicks", "Portland Trailblazers", "Los Angeles Lakers", "Chicago Bulls"],
+    // <label for="sel1">Select list (select one):</label>
+    // <select class="form-control" id="sel1">
+    //   <option>1</option>
+    //   <option>2</option>
+    //   <option>3</option>
+    //   <option>4</option>
+    // </select>
 
-    }, {
-        question: "Which group released the hit song, \"Smells Like Teen Spirit\"?",
-        answers: ["Nirvana", "Backstreet Boys", "The Offspring", "No Doubt"],
-
-    }, {
-        question: "Which popular Disney movie featured the song, \"Circle of Life\"?",
-        answers: ["Aladdin", "Hercules", "Mulan", "The Lion King"],
-
-    }, {
-        question: "Finish this line from the Fresh Prince of Bel-Air theme song: \"I whistled for a cab and when it came near, the license plate said...\"",
-        answers: ["Dice", "Mirror", "Fresh", "Cab"],
-
-    }, {
-        question: "What was Doug's best friend's name?",
-        answers: ["Skeeter", "Mark", "Zach", "Cody"],
-
-    }, {
-        question: "What was the name of the principal at Bayside High in Saved By The Bell?",
-        answers: ["Mr.Zhou", "Mr.Driggers", "Mr.Belding", "Mr.Page"],
-
-    },
-    {
-        question: "What was Doug's best friend's name?",
-        answers: ["Skeeter", "Mark", "Zach", "Cody"],
-
-    },
-    {
-        question: "What was Doug's best friend's name?",
-        answers: ["Skeeter", "Mark", "Zach", "Cody"],
-
-    }];
 
     for (var i = 0; i < questions.length; i++) {
         panel.append("<h3> Question " + (i + 1) + "</h3>");
-        panel.append("<h2>" + questions[i].question + "</h2>");
-        for (var j = 0; j < questions[i].answers.length; j++) {
-            panel.append("<input type='radio' name='question-" + i +
-                "' value='" + questions[i].answers[j] + "''>" + questions[i].answers[j]);
-        }
-    }
+        panel.append("<h4>" + questions[i].question + "</h4>");
+        let selectBox = $("<select>");
+        selectBox.addClass("custom-select");
+        panel.append(selectBox);
+        for (var j = 0; j < questions[j].answers.length; j++) {
+            if (j == 0) {
+                console.log("dis");
+                selectBox.append("<option value='" + questions[i].values[j] + "' disabled selected='default'>" +
+                    questions[i].answers[j] +
+                    "</option>");
+            } else {
+                selectBox.append("<option value='" + questions[i].values[j] + "'>" + questions[i].answers[j] +
+                    "</option>");
+            }
 
-    panel.append("<button id='done'>Done</button>");
-    
+        }
+        selectBox.append("</select>")
+    }
+    panel.append("<br><button id='done' class ='btn btn-primary'>Done</button>");
+
     // // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
     // // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
     // // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
