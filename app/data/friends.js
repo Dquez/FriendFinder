@@ -60,10 +60,5 @@ let friends = [{
         5,
         3
     ]
-},
-
-
-
-
-];
+}];
 module.exports = friends;

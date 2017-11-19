@@ -17,9 +17,3 @@ require("./app/routing/htmlRoutes")(app);
 app.listen(port, function(){
   process.env.PORT == undefined? console.log("App listening on PORT 8080"):console.log("App listening on PORT" + process.env.PORT);
 });
-
-
-app.post("/api/friends", function(req, res) {
-  console.log(req.body);
-  res.send({ status: 'SUCCESS' });
-  });
