@@ -13,25 +13,26 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bestFriend" tabindex="-1" role="dialog" aria-labelledby="bestFriendModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h3 class="modal-title" id="bestFriendModalLabel">Your match: <span id="bestFriendName"></span></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <img id="bestFriendImg" alt="best-friend"/>
+                    <p>The difference in points is only <span id="points"></span>!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container">
         <h2 class="text-left">Survey Questions</h2>
         <hr>
@@ -154,8 +155,11 @@
         $.post(currentURL + "/api/friends", newFriend,
             function (data) {
                 console.log(data);
-                // trigger modal
-                $("#exampleModal").modal('show');
+                $("#bestFriendName").text(data.name);
+                $("#bestFriendImg").attr("width", "400px");
+                $("#bestFriendImg").attr("src", data.photo);
+                $("#points").text(data.matchMakerPoints);
+                $("#bestFriend").modal('show');
             });
     });
 </script>

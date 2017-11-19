@@ -16,7 +16,8 @@ module.exports = function (app) {
         // initialize bestfriend for later use in the compare algorithm
         let bestFriend = {
             name: "",
-            photo: ""
+            photo: "",
+            matchMakerPoints: 0
         };
         let bestFriendPoints = 40;
         
@@ -38,6 +39,7 @@ module.exports = function (app) {
                 // if the matchmakerPoints is lower than the bestPoints, this is the new Best Friend and the bestFriend points becomes the matchmakerPoints for the remainder of the friends.scores unless someone is a closer match. 
                 bestFriend.name = friend.name;
                 bestFriend.photo = friend.photo;
+                bestFriend.matchMakerPoints = matchMakerPoints;
                 bestFriendPoints = matchMakerPoints;
             }
         });
