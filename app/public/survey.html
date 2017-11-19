@@ -11,11 +11,32 @@
 
 <body>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <h2 class="text-left">Survey Questions</h2>
         <hr>
         <h3 class="text-left">About You</h3>
-        <form method="POST" role="form" action="http://localhost:8080/api/friends">
+        <form method="POST" role="form">
             <div class="form-group">
                 <label for="name">
                     <h4>Name (Required)</h4>
@@ -33,10 +54,6 @@
             </div>
             <button type="submit" id="done" class="btn btn-lg btn-block btn-primary">Submit</button>
         </form>
-        <!-- <form method="POST" role="form" action="http://localhost:8080/api/friends">
-            <input type="name" class="form-control" id="name" required>
-            <button type="submit" id="weDone" class="btn btn-primary">SUBBBBBB</button>
-        </form> -->
     </div>
     <footer class="footer">
         <div class="container">
@@ -120,14 +137,9 @@
         panel.append(questionDiv);
     }
 
-    // ******************
-    $("#weDone").on("click", function (event) {
+    // ****************** post request
 
-        alert("works");
-    });
-    
-    // let allFriends = [];
-    $("body").on("click", "#done",  function() {
+    $("body").on("click", "#done", function () {
         event.preventDefault();
         let newFriend = {
             name: $("#name").val().trim(),
@@ -138,15 +150,12 @@
             let thisQuestion = $(".question-" + (i + 1));
             newFriend.scores.push(parseInt(thisQuestion[0].value));
         }
-        
-        console.log(newFriend);
-        // allFriends.push(newFriend);
         let currentURL = window.location.origin;
-        console.log(currentURL);
-
         $.post(currentURL + "/api/friends", newFriend,
-        function(data) {
-            // modal ?
-        });
+            function (data) {
+                console.log(data);
+                // trigger modal
+                $("#exampleModal").modal('show');
+            });
     });
 </script>

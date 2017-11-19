@@ -46,7 +46,7 @@ module.exports = function (app) {
 
 
 
-
+        res.json(bestFriend);
 
 
 
