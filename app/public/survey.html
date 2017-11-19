@@ -17,14 +17,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="bestFriendModalLabel">Your match: <span id="bestFriendName"></span></h3>
+                    <h3 class="modal-title" id="bestFriendModalLabel">Your match:
+                        <span id="bestFriendName"></span>
+                    </h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img id="bestFriendImg" alt="best-friend"/>
-                    <p>The difference in points is only <span id="points"></span>!</p>
+                    <img id="bestFriendImg" alt="best-friend" />
+                    <p>The difference in points is only
+                        <span id="points"></span>!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -53,7 +56,7 @@
             </div>
             <div id="wrapper">
             </div>
-            <button type="submit" id="done" class="btn btn-lg btn-block btn-primary">Submit</button>
+            <button type="submit" id="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
         </form>
     </div>
     <footer class="footer">
@@ -72,7 +75,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     let panel = $("#wrapper");
-    const questions = [{
+    // for now there are 10 questins but if I wanted to add more or change up the scores, it would be easy this way since they are dynamically generated using jQuery
+    let questions = [{
             question: "Your mind is always buzzing with unexplored ideas and plan.",
             answers: ["Select an option", "1 (Strongly Disagree)", "2", "3", "4", "5 (Strongly Agree)"],
             values: [0, 1, 2, 3, 4, 5]
@@ -116,6 +120,7 @@
             values: [0, 1, 2, 3, 4, 5]
         }
     ];
+    // loop to generate each question, first the div holding the questions is created
     for (let i = 0; i < questions.length; i++) {
         let questionDiv = $("<div>");
         questionDiv.attr("class", "form-group");
@@ -124,6 +129,7 @@
         let selectBox = $("<select>");
         selectBox.addClass("custom-select question-" + (i + 1));
         questionDiv.append(selectBox);
+        // for each answer, theres a loop to dipslay the question, if its the first in the loop, the question is disabled
         for (let j = 0; j < questions[j].answers.length; j++) {
             if (j == 0) {
                 selectBox.append("<option value='" + questions[i].values[j] + "' disabled selected='default'>" +
@@ -134,32 +140,41 @@
                     "</option>");
             }
         }
+        // appending the question div to the panel, then loop continues so each question is in its own separate div
         selectBox.append("</select>");
         panel.append(questionDiv);
     }
 
     // ****************** post request
 
-    $("body").on("click", "#done", function () {
+    // when done fun
+    $("body").on("click", "#submit", function () {
         event.preventDefault();
+        // putting questionnaire data into an object to post to server
         let newFriend = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
             scores: []
         };
+        // gets each value, since it's not hard coded, you can add more questions dynamically as this app grows
         for (let i = 0; i < questions.length; i++) {
             let thisQuestion = $(".question-" + (i + 1));
             newFriend.scores.push(parseInt(thisQuestion[0].value));
         }
+        // grabs the users current location to concatenate with /api/friends (the post route on the server) and attachs the newFriend object
         let currentURL = window.location.origin;
         $.post(currentURL + "/api/friends", newFriend,
             function (data) {
-                console.log(data);
+                // changes the modal to include bestfriend data that we received from the callback from the server once it was done with its compare logic
                 $("#bestFriendName").text(data.name);
                 $("#bestFriendImg").attr("width", "400px");
                 $("#bestFriendImg").attr("src", data.photo);
                 $("#points").text(data.matchMakerPoints);
                 $("#bestFriend").modal('show');
+                // refreshed the page once the user has closed the modal
+                $('#bestFriend').on('hidden.bs.modal', function () {
+                    location.reload();
+                })
             });
     });
 </script>

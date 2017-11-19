@@ -1,6 +1,6 @@
 const path = require('path');
-
 module.exports = function (app) {
+    // when the user hits the /survey route, the server sends the survey.html file in the public directory
     app.get("/survey", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/survey.html"));
     });

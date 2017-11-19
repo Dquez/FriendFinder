@@ -1,14 +1,9 @@
 module.exports = function (app) {
+    // a generic page that holds all of our new friends (or hard coded friends already in the file)
     let friendsData = require("../data/friends");
     app.get("/api/friends", function (req, res) {
         return res.json(friendsData);
     });
-
-    app.get("/api/friends", function (req, res) {
-        res.json(friendsData);
-    });
-
-
     //Create new friend
     app.post("/api/friends", function (req, res) {
         let newFriend = req.body;
@@ -19,14 +14,13 @@ module.exports = function (app) {
             photo: "",
             matchMakerPoints: 0
         };
+        // Total point difference (if theres a friend with all 5s, and another with all 1s)
         let bestFriendPoints = 40;
-        
         friendsData.forEach(function(friend){
             // catches the current newFriend from entering the algorithm
             if (friend.name == newFriend.name) {
                 return;
             }
-
             // Accumulator points for each newFriend, the lower the number, the higher chance they have at being the best friend
             let matchMakerPoints = 0;
             for (let i = 0; i < friend.scores.length; i ++) {
@@ -43,18 +37,7 @@ module.exports = function (app) {
                 bestFriendPoints = matchMakerPoints;
             }
         });
-
-        console.log("Go best friend : " + bestFriend);
-
-
-
+        // sends bestFriend as json data as a response back to the client/user, which will be picked up from a callback on the front-end
         res.json(bestFriend);
-
-
-
-
-
-        console.log(friendsData);
     });
-
 }
